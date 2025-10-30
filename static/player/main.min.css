@@ -1,0 +1,360 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-family: "IRANSans", "Poppins", sans-serif;
+    outline: none;
+    border: none;
+    color: #fff !important;
+    font-size: 16px
+}
+
+button {
+    cursor: pointer
+}
+
+body video::cue {
+    font-size: 1em;
+    font-family: "IRANSans", sans-serif;
+    padding: 10px;
+}
+
+body.small-font video::cue {
+    font-size: 1em
+}
+
+body.med-font video::cue {
+    font-size: 2.7em
+}
+
+body.big-font video::cue {
+    font-size: 4em
+}
+
+.btn {
+    width: 4.5em;
+    height: 4.5em;
+    border-radius: 50%;
+    background-color: transparent;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-column-gap: unset;
+    column-gap: unset;
+    row-gap: unset
+}
+
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.3)
+}
+
+.btn i {
+    font-size: 2.6em;
+    color: #fff !important
+}
+
+.btn.btn-sm {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 4px;
+    padding: 3px
+}
+
+.btn.btn-sm i {
+    font-size: 1.5em;
+    color: #fff !important
+}
+
+.flat-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    align-items: flex-end;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
+    justify-content: unset;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-column-gap: unset;
+    column-gap: unset;
+    row-gap: unset;
+    float: right
+}
+
+.flat-list .header {
+    font-size: 1.4em;
+    font-weight: normal
+}
+
+.flat-list .list {
+    margin-top: 40px;
+    list-style: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
+    justify-content: unset;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-column-gap: 10px;
+    column-gap: 10px;
+    row-gap: 20px;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap
+}
+
+.flat-list .list .item {
+    background-color: #787878;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px
+}
+
+.flat-list .list .item.active {
+    background-color: #2660ff
+}
+
+.flat-list .list .item span {
+    font-size: 1em
+}
+
+.flat-list .list .item p {
+    display: none
+}
+
+.progress-bar {
+    width: 100%;
+    height: 2px;
+    position: relative;
+    background-color: #3d3d3d
+}
+
+.progress-bar .passed {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 123;
+}
+
+.progress-bar input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    height: 2px;
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    z-index: 1234;
+}
+
+.progress-bar input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer
+}
+
+.player-container {
+    width: 100%;
+    overflow: hidden;
+    height: 100vh;
+    position: relative
+}
+
+.player-container.small-font {
+    font-size: 2em
+}
+
+.player-container.med-font {
+    font-size: 2.5em
+}
+
+.player-container.big-font {
+    font-size: 3em
+}
+
+.player-container .overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    opacity: 1;
+    visibility: inherit;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out
+}
+
+.player-container .overlay.hide {
+    opacity: 0;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out
+}
+
+.player-container .overlay .play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
+}
+
+.player-container .overlay .bottom {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
+    justify-content: unset;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-column-gap: 10px;
+    column-gap: 10px;
+    row-gap: unset;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 35px;
+    width: 100%;
+    padding: 0 10px
+}
+
+.player-container .overlay .bottom .volume {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
+    justify-content: unset;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-column-gap: 10px;
+    column-gap: 10px;
+    row-gap: unset
+}
+
+.player-container .overlay .bottom .volume .progress-bar {
+    width: 0;
+    opacity: 0;
+    -webkit-transition: 0.2s ease;
+    transition: 0.2s ease
+}
+
+.player-container .overlay .bottom .volume .progress-bar.full {
+    opacity: 1;
+    -webkit-transition: 0.2s ease;
+    transition: 0.2s ease;
+    width: 60px
+}
+
+.player-container .function {
+    position: absolute;
+    z-index: 1234;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: 0.2s ease;
+    transition: 0.2s ease;
+    padding-top: 90px
+}
+
+.player-container .function.show {
+    opacity: 1;
+    visibility: inherit;
+    -webkit-transition: 0.2s ease;
+    transition: 0.2s ease
+}
+
+.player-container .function .exit {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    padding: 10px 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: unset;
+    -ms-flex-pack: unset;
+    justify-content: unset;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-column-gap: 5px;
+    column-gap: 5px;
+    row-gap: unset;
+    float: right
+}
+
+.player-container .function .exit i {
+    font-size: 1.4em
+}
+
+.player-container .function .flat-list {
+    padding: 40px 44px
+}
+
+.player-container .video {
+    width: 100%;
+    height: 100vh;
+    display:grid;
+    place-items:center;
+}
+
+.player-container .video video {
+    width: 100%;
+    max-height: 100vh;
+    object-fit: cover;
+    margin:auto 0;
+}

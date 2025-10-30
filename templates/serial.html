@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}- {{ serial.title }}{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/single.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="intro" style="background-image: url({{ serial.poster_img.url }})">
+        <div class="video-holder">
+            {% for trailer in trailers %}
+                <video src="{{ trailer.file.url }}" controls></video>
+            {% endfor %}
+        </div>
+        {% include 'partials/navbar.html' %}
+        <div class="qrcode animate__animated animate__fadeInLeft">
+            <button class="qrcode-btn">
+                <img src="{% static 'icons/qrCode.svg' %}" alt="">
+                <div style="display: none;" class="svg-value">
+                    {{ serial.qrCode|safe }}
+                </div>
+            </button>
+        </div>
+        <div class="after"></div>
+        <div class="before"></div>
+        <div class="details">
+            <div class="top animate__animated animate__fadeIn">
+                <h1 class="title en">
+                    {{ serial.title }}
+                </h1>
+            </div>
+            <div class="bottom">
+                <div class="right animate__animated animate__fadeInRight">
+                    <ul class="extra-details">
+                        <li>
+                            <i class="far fa-tv"></i>
+                            <span class="label">کیفیت: </span>
+                            <span class="value">{{ serial.resolution }}</span>
+                        </li>
+                        <li>
+                            <span class="label">داستان: </span>
+                            <p class="value">{{ serial.fa_story|truncatechars:500 }}</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="middle">
+                    {% if trailers|length > 0 %}
+                        <button id="play-trailer">
+                            <i class="far fa-play"></i>
+                        </button>
+                    {% endif %}
+                </div>
+                <div class="left animate__animated animate__fadeInLeft">
+                    <ul class="extra-details">
+                        <li>
+                            <i class="fas fa-star"></i>
+                            <span class="label">امتیاز: </span>
+                            <span class="value">{{ serial.rating }}</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-list"></i>
+                            <span class="label">ژانر: </span>
+                            <span class="value">
+                                 {% for genre in serial.genre.all|slice:"0:3" %}
+                                     <a href="{% url 'category:index' genre.en_title %}">{{ genre.fa_title }}</a>
+                                 {% endfor %}
+                            </span>
+                        </li>
+                        <li>
+                            <i class="far fa-language"></i>
+                            <span class="label">زبان: </span>
+                            <span class="value">{{ serial.language }}</span>
+                        </li>
+                        <li>
+                            <i class="far fa-globe"></i>
+                            <span class="label">کشور: </span>
+                            <span class="value">{{ serial.country }}</span>
+                        </li>
+                        <li>
+                            <i class="far fa-money-bill"></i>
+                            <span class="label">بودجه: </span>
+                            <span class="value">{{ serial.budget }}</span>
+                        </li>
+                        <li>
+                            <i class="far fa-calendar"></i>
+                            <span class="label">سال تولید: </span>
+                            <span class="value">{{ serial.year }}</span>
+                        </li>
+                        <li>
+                            <i class="far fa-certificate"></i>
+                            <span class="label">دسته: </span>
+                            <span class="value">{{ serial.certificate }}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <a class="go-down" href="#more-details">
+                <i class="fa fa-chevron-down"></i>
+            </a>
+        </div>
+    </div>
+    <div class="see-more">
+        <button id="see-more"><span>اطلاعات بیشتر</span><i class="far fa-chevron-left"></i></button>
+    </div>
+    <div class="more-details" id="more-details">
+        <div class="cast detail-item">
+            <div class="header">
+                <i class="fal fa-theater-masks"></i>
+                <h3>بازیگران</h3>
+            </div>
+            <ul class="persons">
+                {% for person in serial.cast.all %}
+                    <li>
+                        <a href="{% url 'Person:index' person.slug %}">
+                            <div class="image" style="background-image: url({{ person.img.url }})">
+                            </div>
+                            <h3 class="name en">{{ person.name }}</h3>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="cast detail-item">
+            <div class="header">
+                <i class="fal fa-directions"></i>
+                <h3>کارگردان</h3>
+            </div>
+            <ul class="persons">
+                {% for person in serial.directors.all %}
+                    <li>
+                        <a href="{% url 'Person:index' person.slug %}">
+                            <div class="image" style="background-image: url({{ person.img.url }})">
+                            </div>
+                            <h3 class="name en">{{ person.name }}</h3>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="cast detail-item">
+            <div class="header">
+                <i class="fal fa-typewriter"></i>
+                <h3>نویسندگان</h3>
+            </div>
+            <ul class="persons">
+                {% for person in serial.writers.all %}
+                    <li>
+                        <a href="{% url 'Person:index' person.slug %}">
+                            <div class="image" style="background-image: url({{ person.img.url }})">
+                            </div>
+                            <h3 class="name en">{{ person.name }}</h3>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="download-box detail-item">
+        <div class="header">
+            <i class="fal fa-cloud-download"></i>
+            <h3>دانلود باکس</h3>
+        </div>
+        <div class="lists dropdown-lists" id="lists-holder">
+            <span class="spinner"></span>
+        </div>
+    </div>
+    {% if related|length > 0 %}
+        <div class="movie-h-list detail-item">
+            <div class="header">
+                <i class="far fa-link"></i>
+                <h3>عناوین مرتبط</h3>
+            </div>
+            <ul class="items">
+                {% for foo in related %}
+                    <li>
+                        <a href="{% url 'movie:single' foo.slug %}">
+                            <div class="image" style="background-image: url({{ foo.poster_img.url }})"></div>
+                            <div class="title en">{{ foo.title }}</div>
+                            <div class="rating">10 / <span>{{ foo.rating }}</span><i class="fas fa-star"></i></div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% if suggestions|length > 0 %}
+        <div class="movie-h-list detail-item">
+            <div class="header">
+                <i class="far fa-lightbulb"></i>
+                <h3>پیشنهاد ها</h3>
+            </div>
+            <ul class="items">
+                {% for foo in suggestions %}
+                    <li>
+                        <a href="{% url 'movie:single' foo.slug %}">
+                            <div class="image" style="background-image: url({{ foo.poster_img.url }})"></div>
+                            <div class="title en">{{ foo.title }}</div>
+                            <div class="rating">10 / <span>{{ foo.rating }}</span><i class="fas fa-star"></i></div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block pages %}
+    {% include 'partials/qr_page.html' %}
+{% endblock %}
+{% block script %}
+    <script>
+
+        $(document).ready(function () {
+            $('.loader').fadeOut(300);
+
+            function disableLink() {
+                let disabledLinks = document.querySelectorAll('.disabled');
+                disabledLinks.forEach(item => {
+                    item.onclick = (e) => {
+                        e.preventDefault();
+                    }
+                });
+            }
+
+            const qrcodePage = document.querySelector('.qrcode-page');
+            let closePages = document.querySelectorAll('.close-page');
+            closePages.forEach((item) => {
+                item.onclick = (e) => {
+                    let triggerPage = item.dataset.closePage;
+                    document.querySelector(`.${triggerPage}`).classList.toggle('active');
+                }
+            })
+
+            let qrCodeBtns = document.querySelectorAll('.qrcode-btn');
+            qrCodeBtns.forEach((btn) => {
+                btn.onclick = () => {
+                    console.log(btn);
+                    qrcodePage.querySelector('.card').innerHTML = btn.querySelector('.svg-value').innerHTML;
+                    qrcodePage.classList.toggle('active');
+                }
+            });
+            $('#play-trailer').click(function (e) {
+                e.preventDefault();
+                $('.intro').toggleClass('play-video');
+
+            });
+            $('.see-more').click(function (e) {
+                e.preventDefault();
+                $(this).toggleClass('active');
+                $('.more-details').toggleClass('active');
+            });
+
+        })
+    </script>
+    <script>
+        let lists_holder = document.getElementById('lists-holder');
+        let xhr = new XMLHttpRequest();
+        let url = "{% url 'REST:single' %}?id={{ serial.imdb_id }}";
+        xhr.open('GET', url);
+        xhr.onload = () => {
+            let jsoned = JSON.parse(xhr.responseText);
+            lists_holder.innerHTML = '';
+            setLists(jsoned.result.seasons);
+            listsEvents();
+        }
+        xhr.send();
+
+        function setLists(seasons) {
+            seasons.forEach((season) => {
+                let epiosdes = setEpisodeItem(season.collections);
+                let list_el = ` <div class="list">
+                                    <div class="head">
+                                        <div class="right">
+                                            <h3>فصل ${season.number}</h3>
+                                            <i class="far fa-chevron-left"></i>
+                                        </div>
+                                        <div class="left">
+                                            <a href="/player/${season.uuid}" class="btn btn-yellow round"><i class="far fa-play"></i> پخش آنلاین</a>
+                                        </div>
+                                    </div>
+                                    <ul class="items">
+                                        ${epiosdes}
+                                    </ul>
+                                </div>`;
+                lists_holder.innerHTML += list_el;
+
+            });
+        }
+
+        function setEpisodeItem(episodes) {
+            let all_episodes = "";
+            episodes.forEach((episode) => {
+                all_episodes += `<li>
+                            <div class="right">
+                                <a href="${episode.src}">
+                                    <button class="btn btn-primary btn-outline">
+                                        <i class="far fa-cloud-download"></i>
+                                        <span>دانلود با لینک مستقیم</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <div class="left">
+                                <span class="title">قسمت ${episode.number}</span>
+                                <span class="title en">Bluray ${ episode.resolution }</span>
+                                <span class="size">${ episode.size }</span>
+                            </div>
+                        </li>`;
+            });
+            return all_episodes;
+        }
+
+        function listsEvents() {
+            const dropdownList = document.querySelector('.dropdown-lists');
+            const lists = dropdownList.querySelectorAll('.list');
+            lists.forEach(element => {
+                let header = element.querySelector('.head');
+                header.onclick = () => {
+                    disableAllLists(element);
+                    if (!element.classList.contains('active')) {
+                        element.classList.add('active');
+                    } else {
+                        element.classList.remove('active');
+                    }
+                }
+            });
+
+            function disableAllLists(list) {
+                let inside_current = 0;
+                lists.forEach(element => {
+                    if (element !== list) {
+                        element.classList.remove('active');
+                    }
+                });
+            }
+        }
+    </script>
+{% endblock %}

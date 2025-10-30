@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'components/fonts/IRANSans/fontiran.css' %}">
+    <link rel="stylesheet" href="{% static 'player/main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'components/fontawesome/css/all.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'icons/logo.png' %}">
+    <title>{{title}} - Online</title>
+</head>
+
+<body>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'IRANSans', sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow-x: hidden;
+            background-color: #000;
+        }
+
+        .play-btn.spin .spinner {
+            display: block;
+        }
+
+        .play-btn.spin i {
+            display: none;
+        }
+
+        .spinner {
+            display: none;
+            border: 3px solid rgba(0, 0, 0, .1);
+            border-left-color: white;
+            border-bottom-color: white;
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            z-index: 1234456;
+            animation: rotate linear 2s infinite;
+            animation-delay: 0ms;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotateZ(0deg);
+            }
+
+            to {
+                transform: rotateZ(360deg);
+            }
+        }
+    </style>
+    <video src="{{video}}" id="player" poster="{{poster}}">
+    </video>
+
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'player/player.js'%}" type="module"></script>
+    <!--
+    <script>
+        window.onunhandledrejection = function (msg, url, line, col, error) {
+            //let xhr = new XMLHttpRequest();
+            //let formData = new FormData();
+            //formData.append('error', `${msg.reason.message}`);
+            //formData.append('device', `${navigator.userAgent}`);
+            //
+            //xhr.send(formData);
+        };
+    </script>-->
+    
+    <script type="module">
+        import { Player } from "{% static 'player/player.js'%}";
+        let options;
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', "{% url 'player:details' movie.uuid %}?use_imdb=false");
+        xhr.onload = (e) => {
+            options = JSON.parse(xhr.responseText);
+            let newsd = {};
+
+            options["src"] = "{{video}}";
+            const player = new Player('player', options);
+        }
+        xhr.send();
+    </script>
+    <script>
+
+    </script>
+
+</body>
+
+</html>

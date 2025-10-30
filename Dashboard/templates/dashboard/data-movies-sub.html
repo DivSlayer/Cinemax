@@ -1,0 +1,261 @@
+{% extends 'dashboard/struct.html' %}
+{% block content %}
+    <!-- Begin Page Header-->
+    <div class="row">
+        <div class="page-header">
+            <div class="d-flex align-items-center">
+                <h2 class="page-header-title">Datatables</h2>
+                <div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="db-default.html"><i
+                                class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active">Datatables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <div class="row">
+        <div class="col-xl-12">
+            <!-- Sorting -->
+            <div class="widget has-shadow">
+                <div class="widget-header bordered no-actions d-flex align-items-center">
+                    <h4>Movies Subtitles</h4>
+                </div>
+                <div class="widget-body">
+                    <div class="table-responsive">
+                        <div id="sorting-table_wrapper"
+                             class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="dataTables_length"
+                                         id="sorting-table_length">
+                                        <label>Show <select name="sorting-table_length"
+                                                            aria-controls="sorting-table"
+                                                            id="movies_per_page"
+                                                            class="form-control form-control-sm">
+                                            <option
+                                                    value="10">
+                                                10
+                                            </option>
+                                            <option
+                                                    value="15">
+                                                15
+                                            </option>
+                                            <option
+                                                    value="20">
+                                                20
+                                            </option>
+                                            <option
+                                                    value="{{ movies_count }}">
+                                                All
+                                            </option>
+                                        </select>
+                                            entries</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="dataTables_length"
+                                         id="sorting-table_length">
+                                        <form action="#">
+
+                                            <label>Go <select name="sorting-table_length"
+                                                              aria-controls="sorting-table"
+                                                              id="movies_per_page"
+                                                              class="form-control form-control-sm">
+                                                <option
+                                                        value="10">Remove Selected
+                                                </option>
+                                                <option
+                                                        value="15">
+                                                    15
+                                                </option>
+                                                <option
+                                                        value="20">
+                                                    20
+                                                </option>
+                                                <option
+                                                        value="{{ movies_count }}">
+                                                    All
+                                                </option>
+                                            </select>
+                                                <button type="submit" class="btn btn-primary">Go</button>
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div id="sorting-table_filter"
+                                         class="dataTables_filter">
+                                        <label>Search:<input type="search"
+                                                             class="form-control form-control-sm"
+                                                             placeholder=""
+                                                             id="movies-search"
+                                                             aria-controls="sorting-table"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="sorting-table"
+                                           class="table mb-0 dataTable no-footer"
+                                           role="grid"
+                                           aria-describedby="sorting-table_info">
+                                        <thead>
+                                        <tr
+                                                role="row">
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Order ID: activate to sort column ascending"
+                                                style="width: 55px;">
+                                                <div class="styled-checkbox" style="display: inline-block;">
+                                                    <input type="checkbox" name="checkbox" id="check-1">
+                                                    <label for="check-1"></label>
+                                                </div>
+                                                Select
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Order ID: activate to sort column ascending"
+                                                style="width: 10px;">
+                                                ID
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Customer Name: activate to sort column ascending"
+                                                style="width: 90px;">
+                                                Name
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Country: activate to sort column ascending"
+                                                style="width:90px;">
+                                                Movie
+                                            </th>
+                                            <th class="sorting_desc"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-sort="descending"
+                                                aria-label="Ship Date: activate to sort column ascending"
+                                                style="width: 86.1719px;">
+                                                Status
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Actions: activate to sort column ascending"
+                                                style="width: 70.3125px;">
+                                                Actions
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for subtitle in page.object_list %}
+                                            <tr role="row"
+                                                class="odd">
+                                                <td><span><div class="styled-checkbox">
+                                                                                                                                  <input type="checkbox"
+                                                                                                                                         name="{{ subtitle.pk }}"
+                                                                                                                                         id="check-{{ subtitle.pk }}">
+                                                                                                                                  <label for="check-{{ subtitle.pk }}"></label>
+                                                                                                                              </div></span>
+                                                <td><span class="text-primary">{{ subtitle.pk }}</span>
+                                                </td>
+                                                <td>{{ subtitle }}
+                                                </td>
+                                                <td>{{ subtitle.movie.title }}
+                                                </td>
+                                                <td
+                                                        class="sorting_1">
+                                                    {% if subtitle.vtt %}
+                                                        <span class="badge-text badge-text-small success">Fine</span>
+                                                    {% else %}
+                                                        <span class="badge-text badge-text-small danger">Corrupted</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td
+                                                        class="td-actions">
+                                                    <a
+                                                            href="#"><i
+                                                            class="la la-edit edit"></i></a>
+                                                    <a
+                                                            href="#"><i
+                                                            class="la la-close delete"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info"
+                                         id="sorting-table_info"
+                                         role="status"
+                                         aria-live="polite">
+                                        Showing {{ page.start_index }} to {{ page.end_index }} of
+                                        {{ count }} entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers"
+                                         id="sorting-table_paginate">
+                                        <ul
+                                                class="pagination">
+                                            <li class="paginate_button page-item previous {% if not page.has_previous %}disabled{% endif %}"
+                                                id="sorting-table_previous">
+                                                <a href="#"
+                                                   aria-controls="sorting-table"
+                                                   data-dt-idx="0"
+                                                   tabindex="0"
+                                                   class="page-link">Previous</a>
+                                            </li>
+                                            {% for x in page_range %}
+                                                <li
+                                                        class="paginate_button page-item active">
+                                                    <a href="#"
+                                                       aria-controls="sorting-table"
+                                                       data-dt-idx="1"
+                                                       tabindex="0"
+                                                       class="page-link">{{ x }}</a>
+                                                </li>
+                                            {% endfor %}
+                                            <li class="paginate_button page-item next  {% if not page.has_next %}disabled{% endif %}"
+                                                id="sorting-table_next">
+                                                <a href="#"
+                                                   aria-controls="sorting-table"
+                                                   data-dt-idx="3"
+                                                   tabindex="0"
+                                                   class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Sorting -->
+        </div>
+    </div>
+{% endblock content %}

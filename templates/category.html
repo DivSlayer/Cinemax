@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}- {{ category.en_title }} Movies{% endblock %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/category.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'partials/navbar.html' %}
+    <div class="main">
+        <div class="movie-list">
+            <div class="header">
+                <h1 class="title">{{ category.fa_title }}</h1>
+                <div class="ordering">
+                    <select name="order" id="ordering">
+                        <option value="-rating">امتیاز</option>
+                        <option value="title">نام</option>
+                        <option value="-published_at">زمان انتشار</option>
+                    </select>
+                </div>
+            </div>
+            <ul class="items">
+                {% for movie in movies %}
+                    <li>
+                        <a href="{{ movie.url }}">
+                            <div class="image" style="background-image: url({{ movie.item_img.url }})">
+                                <div class="overlay">
+                                    <p class="story">{{ movie.fa_story }}</p>
+                                </div>
+                            </div>
+                            <div class="title en">{{ movie.title }}</div>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <div class="rate">
+                                    <span>{{ movie.rating }}</span> / <span>10</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="pagination">
+            <ul class="links"></ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        let ordering_el = document.getElementById('ordering');
+        ordering_el.onchange = () => {
+            let url = window.location.search === "" ? `?order=${ordering_el.value}` : window.location.search + `&order=${ordering_el.value}`;
+            url = window.location.href + url;
+            window.location.href = url;
+        }
+    </script>
+    <script src="{% static 'js/pagination.js' %}"></script>
+    <script>
+        Paginator({{ page }}, {{ last_page }}, {{ first_page }});
+    </script>
+{% endblock %}

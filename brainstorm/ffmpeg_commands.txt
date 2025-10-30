@@ -1,0 +1,357 @@
+720px : $ffmpeg_b $video_time -y -i $video_file_full_path -vcodec libx264 -preset {$pt->config->convert_speed} -filter:v scale=1280:-2 -crf 26 ".$full_dir . $demo_video." 2>&1";
+480px :$ffmpeg_b -y -i $video_file_full_path -vcodec libx264 -preset {$pt->config->convert_speed} -filter:v scale=854:-2 -crf 26 $video_output_full_path_480 2>&1"
+360px : $ffmpeg_b -y -i $video_file_full_path -vcodec libx264 -preset {$pt->config->convert_speed} -filter:v scale=640:-2 -crf 26 $video_output_full_path_360 2>&1"
+gif :ffmpeg_b -t 3  -async 1 -y -i $video_file_full_path ".$full_dir . $gif_video
+
+
+get poster c: True
+1280
+Life.2017.720p.x265.ShAaNiG.softsub.Cinemax.mkv
+
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/tagged.mkv':
+Input #0, matroska,webm, from 'E:\Movies\Cinemax\media\movies\life 2017-WLszT76Jlu\Life.2017.720p.x265.ShAaNiG.softsub.Cinemax.mkv':
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    encoder         : Lavf60.11.100
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536 [SAR 1:1 DAR 160:67], q=2-31, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC) ([255][0][0][0] / 0x00FF), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Press [q] to stop, [?] for help
+[out#0/matroska @ 0000018f37c57640] video:572981kB audio:48692kB subtitle:0kB other streams:0kB global headers:1kB muxing overhead: 0.335027%
+frame=149568 fps=18283 q=-1.0 Lsize=  623756kB time=01:43:58.19 bitrate= 819.1kbits/s speed= 763x
+ffmpeg version N-112006-gc6f0fd2dcd-20230910 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13.1.0 (crosstool-NG 1.25.0.196_227d99d)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230910
+  libavutil      58. 19.100 / 58. 19.100
+  libavcodec     60. 26.100 / 60. 26.100
+  libavformat    60. 11.100 / 60. 11.100
+  libavdevice    60.  2.101 / 60.  2.101
+  libavfilter     9. 11.100 /  9. 11.100
+  libswscale      7.  3.100 /  7.  3.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, matroska,webm, from 'E:\Movies\Cinemax\media\movies\life 2017-WLszT76Jlu\Life.2017.720p.x265.ShAaNiG.Cinemax.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    ENCODER         : Lavf60.11.100
+  Duration: 01:43:58.24, start: 0.000000, bitrate: 819 kb/s
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536, SAR 1:1 DAR 160:67, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    encoder         : Lavf60.11.100
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536 [SAR 1:1 DAR 160:67], q=2-31, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC) ([255][0][0][0] / 0x00FF), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Press [q] to stop, [?] for help
+[out#0/matroska @ 0000027dbb036940] video:572981kB audio:48692kB subtitle:0kB other streams:0kB global headers:1kB muxing overhead: 0.335027%
+frame=149568 fps=16563 q=-1.0 Lsize=  623756kB time=01:43:58.19 bitrate= 819.1kbits/s speed= 691x
+ffmpeg version N-112006-gc6f0fd2dcd-20230910 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13.1.0 (crosstool-NG 1.25.0.196_227d99d)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230910
+  libavutil      58. 19.100 / 58. 19.100
+  libavcodec     60. 26.100 / 60. 26.100
+  libavformat    60. 11.100 / 60. 11.100
+  libavdevice    60.  2.101 / 60.  2.101
+  libavfilter     9. 11.100 /  9. 11.100
+  libswscale      7.  3.100 /  7.  3.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, matroska,webm, from 'E:\Movies\Cinemax\media\movies\life 2017-WLszT76Jlu\Life.2017.720p.x265.ShAaNiG.Cinemax.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    ENCODER         : Lavf60.11.100
+  Duration: 01:43:58.24, start: 0.000000, bitrate: 819 kb/s
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536, SAR 1:1 DAR 160:67, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    encoder         : Lavf60.11.100
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536 [SAR 1:1 DAR 160:67], q=2-31, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC) ([255][0][0][0] / 0x00FF), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Press [q] to stop, [?] for help
+[out#0/matroska @ 000002bf8e0d58c0] video:572981kB audio:48692kB subtitle:0kB other streams:0kB global headers:1kB muxing overhead: 0.335027%
+frame=149568 fps=16786 q=-1.0 Lsize=  623756kB time=01:43:58.19 bitrate= 819.1kbits/s speed=700x
+It Has Subtitle
+The system cannot find the path specified.
+donesubs:0
+ffmpeg version N-112006-gc6f0fd2dcd-20230910 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13.1.0 (crosstool-NG 1.25.0.196_227d99d)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230910
+  libavutil      58. 19.100 / 58. 19.100
+  libavcodec     60. 26.100 / 60. 26.100
+  libavformat    60. 11.100 / 60. 11.100
+  libavdevice    60.  2.101 / 60.  2.101
+  libavfilter     9. 11.100 /  9. 11.100
+  libswscale      7.  3.100 /  7.  3.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, matroska,webm, from 'E:\Movies\Cinemax\media\movies\life 2017-WLszT76Jlu\Life.2017.720p.x265.ShAaNiG.Cinemax.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    ENCODER         : Lavf60.11.100
+  Duration: 01:43:58.24, start: 0.000000, bitrate: 819 kb/s
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536, SAR 1:1 DAR 160:67, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    encoder         : Lavf60.11.100
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536 [SAR 1:1 DAR 160:67], q=2-31, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC) ([255][0][0][0] / 0x00FF), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Press [q] to stop, [?] for help
+[out#0/matroska @ 00000241bebe6400] video:572981kB audio:48692kB subtitle:0kB other streams:0kB global headers:1kB muxing overhead: 0.335027%
+frame=149568 fps=17596 q=-1.0 Lsize=  623756kB time=01:43:58.19 bitrate= 819.1kbits/s speed= 734x
+ffmpeg version N-112006-gc6f0fd2dcd-20230910 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13.1.0 (crosstool-NG 1.25.0.196_227d99d)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --disable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230910
+  libavutil      58. 19.100 / 58. 19.100
+  libavcodec     60. 26.100 / 60. 26.100
+  libavformat    60. 11.100 / 60. 11.100
+  libavdevice    60.  2.101 / 60.  2.101
+  libavfilter     9. 11.100 /  9. 11.100
+  libswscale      7.  3.100 /  7.  3.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, matroska,webm, from 'E:\Movies\Cinemax\media\movies\life 2017-WLszT76Jlu\Life.2017.720p.x265.ShAaNiG.Cinemax.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    ENCODER         : Lavf60.11.100
+  Duration: 01:43:58.24, start: 0.000000, bitrate: 819 kb/s
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536, SAR 1:1 DAR 160:67, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Output #0, matroska, to 'E:\Movies\Cinemax\media/movies/life 2017-WLszT76Jlu/video-no-subs.mkv':
+  Metadata:
+    title           : Life 2017 720p - Cinemax.com
+    encoder         : Lavf60.11.100
+  Stream #0:0: Video: hevc (Main), yuv420p(tv), 1280x536 [SAR 1:1 DAR 160:67], q=2-31, 23.98 fps, 23.98 tbr, 1k tbn (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 752434
+      DURATION-eng    : 01:43:58.232000000
+      NUMBER_OF_FRAMES-eng: 149568
+      NUMBER_OF_BYTES-eng: 586732777
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      COMMENT         : Cinemax.com
+      DURATION        : 01:43:58.231000000
+  Stream #0:1(Persian): Audio: aac (HE-AAC) ([255][0][0][0] / 0x00FF), 48000 Hz, stereo, fltp (default)
+    Metadata:
+      title           : Cinemax.com
+      _STATISTICS_TAGS-eng: BPS DURATION NUMBER_OF_FRAMES NUMBER_OF_BYTES
+      BPS-eng         : 63942
+      DURATION-eng    : 01:43:58.208000000
+      NUMBER_OF_FRAMES-eng: 146208
+      NUMBER_OF_BYTES-eng: 49860912
+      _STATISTICS_WRITING_APP-eng: mkvmerge v47.0.0 ('Black Flag') 64-bit
+      _STATISTICS_WRITING_DATE_UTC-eng: 2020-06-07 14:00:37
+      HANDLER         : Cinemax.com
+      DURATION        : 01:43:58.237000000
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Press [q] to stop, [?] for help
+[out#0/matroska @ 00000200ea465d80] video:572981kB audio:48692kB subtitle:0kB other streams:0kB global headers:1kB muxing overhead: 0.335027%
+frame=149568 fps=15718 q=-1.0 Lsize=  623756kB time=01:43:58.19 bitrate= 819.1kbits/s speed= 656x
+[27/Sep/2023 14:38:13] "GET /api/update/life-2017?video=Life.2017.720p.x265.ShAaNiG.softsub.mkv HTTP/1.1" 200 39

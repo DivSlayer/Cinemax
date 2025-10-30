@@ -1,0 +1,402 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}- تماشای فیلم و سریال{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/index.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Intro Start -->
+    <section class="intro">
+        <div class="poster" id="poster-img">
+            <div class="images">
+            </div>
+        </div>
+        <div class="holder">
+            {% include 'partials/navbar.html' %}
+            <div class="details" id="details">
+                <div class="titles">
+                </div>
+                <div class="functions">
+                    <a href="#" id="play-online-btn">
+                        <button class="btn btn-primary btn-outline">پخش آنلاین</button>
+                    </a>
+                    <button class="add-favorite"><img src="{% static 'icons/add-circle-outline.svg' %}" alt=""/>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Intro End -->
+
+    <!-- SearchBox Start -->
+    <section class="card search-box">
+        <div class="right svg">
+            <div class="icon">
+                <svg>
+                    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 57 57" id="adv_search">
+                        <path fill-rule="evenodd" class="searchwhitepart" fill="#fff"
+                              d="M.984 14.25V1.781C.984.797 1.767 0 2.734 0s1.75.797 1.75 1.781V14.25c0 .983-.783 1.781-1.75 1.781s-1.75-.798-1.75-1.781zm24.502 1.781c.967 0 1.75-.798 1.75-1.781V1.781c0-.984-.783-1.781-1.75-1.781-.968 0-1.751.797-1.751 1.781V14.25c0 .983.783 1.781 1.751 1.781zm22.751 0c.967 0 1.75-.798 1.75-1.781V1.781c0-.984-.783-1.781-1.75-1.781s-1.75.797-1.75 1.781V14.25c0 .983.783 1.781 1.75 1.781zM2.734 39.187c-.967 0-1.75.797-1.75 1.781v12.469c0 .985.783 1.781 1.75 1.781s1.75-.796 1.75-1.781V40.968c0-.984-.783-1.781-1.75-1.781zm21.001 10.688v3.562c0 .985.783 1.781 1.751 1.781.967 0 1.75-.796 1.75-1.781v-3.562h-3.501zm-5.25-30.282c-.967 0-1.75.798-1.75 1.782v12.469c0 .984.783 1.781 1.75 1.781s1.75-.797 1.75-1.781V21.375c0-.984-.783-1.782-1.75-1.782zm8.751 5.344v-3.562c0-.984-.783-1.782-1.75-1.782-.968 0-1.751.798-1.751 1.782v3.562h3.501zm22.751-1.781v-1.781c0-.984-.783-1.782-1.75-1.782s-1.75.798-1.75 1.782v1.781h3.5zm6.488 30.803a1.803 1.803 0 010 2.519 1.73 1.73 0 01-2.475 0l-7.693-7.83c-2.371 1.878-5.341 3.008-8.571 3.008-7.719 0-14.001-6.393-14.001-14.25 0-7.858 6.282-14.25 14.001-14.25 7.72 0 14.001 6.392 14.001 14.25 0 3.287-1.11 6.31-2.955 8.724l7.693 7.829zm-8.238-16.553c0-5.893-4.711-10.688-10.501-10.688-5.79 0-10.5 4.795-10.5 10.688 0 5.893 4.71 10.687 10.5 10.687s10.501-4.794 10.501-10.687z">
+                        </path>
+                        <path fill-rule="evenodd" fill="#EB8307"
+                              d="M7.984 14.25V1.781C7.984.797 8.767 0 9.734 0h8.751c.967 0 1.75.797 1.75 1.781V14.25c0 .983-.783 1.781-1.75 1.781H9.734c-.967 0-1.75-.798-1.75-1.781zm3.501-1.782h5.25V3.562h-5.25v8.906zm19.251 1.782V1.781c0-.984.783-1.781 1.75-1.781h8.751c.967 0 1.75.797 1.75 1.781V14.25c0 .983-.783 1.781-1.75 1.781h-8.751c-.967 0-1.75-.798-1.75-1.781zm3.5-1.782h5.25V3.562h-5.25v8.906zm-14.001 28.5v12.469c0 .985-.783 1.781-1.75 1.781H9.734c-.967 0-1.75-.796-1.75-1.781V40.968c0-.984.783-1.781 1.75-1.781h8.751c.967 0 1.75.797 1.75 1.781zm-3.5 1.782h-5.25v8.906h5.25V42.75zM.984 33.844V21.375c0-.984.783-1.782 1.75-1.782h8.751c.967 0 1.75.798 1.75 1.782v12.469c0 .984-.783 1.781-1.75 1.781H2.734c-.967 0-1.75-.797-1.75-1.781zm3.5-1.782h5.25v-8.906h-5.25v8.906zm28.002 5.344c0-2.947 2.355-5.344 5.25-5.344.968 0 1.75-.797 1.75-1.781 0-.984-.782-1.781-1.75-1.781-4.824 0-8.75 3.995-8.75 8.906 0 .984.783 1.781 1.75 1.781s1.75-.797 1.75-1.781z">
+                        </path>
+                    </symbol>
+                    <use href="#adv_search"></use>
+                </svg>
+            </div>
+            <div class="title">
+                <p>جستجوی</p>
+                <span>پیشرفته</span>
+            </div>
+        </div>
+        <div class="left">
+            <form class="form" method="get">
+                <div class="datas">
+                    <div class="form-group">
+                        <label for="directors">کارگردان</label>
+                        <input type="text" name="directors" id="directors" placeholder="Cristopher Nolan"
+                               class="en">
+                    </div>
+                    <div class="form-group">
+                        <label for="cast">بازیگران</label>
+                        <input type="text" name="cast" id="cast" placeholder="Dicaprio,Jona Hill" class="en">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">کشور</label>
+                        <select type="text" name="country" id="country">
+                            <option value="0" selected>همه</option>
+                            <option value="1" class="en">USA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pga">رده سنی</label>
+                        <select name="country" id="pga">
+                            <option value="0" selected>همه</option>
+                            <option value="1" class="en">USA</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="resolution">کیفیت</label>
+                        <select name="resolution" id="resolution">
+                            <option value="0">همه</option>
+                            <option value="2160p" class="en">2160p</option>
+                            <option value="1080p" class="en">1080p</option>
+                            <option value="720p" class="en">720p</option>
+                            <option value="480p" class="en">480p</option>
+                            <option value="360p" class="en">360p</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="order">ترتیب</label>
+                        <select name="order" id="order">
+                            <option value="-rating" selected>امتیاز</option>
+                            <option value="title">عنوان</option>
+                            <option value="-published_at">زمان انتشار</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <p class="checkLabel" data-check-id="dubbed"></p>
+                        <input type="checkbox" name="dubbed" id="dubbed" {% if dubbed == 'on' %}checked{% endif %}>
+                        <span class="label">دوبله فارسی</span>
+                    </div>
+                    <div class="form-group">
+                        <p class="checkLabel" data-check-id="subbed"></p>
+                        <input type="checkbox" name="subbed" id="subbed" {% if subbed == 'on' %}checked{% endif %}>
+                        <span class="label">زیرنویس فارسی</span>
+                    </div>
+                    <div class="form-group">
+                        <p class="checkLabel" data-check-id="censored"></p>
+                        <input type="checkbox" name="censored" id="censored">
+                        <span class="label">سانسور شده</span>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline btn-yellow round">جستجو</button>
+                    </div>
+                </div>
+                <div class="sliders">
+                    <div class="form-group double-slide">
+                        <div class="top">
+                            <span class="label">سال ساخت</span>
+                            <p><span id="from-year">{{ min_year }}</span> - <span id="to-year">{{ max_year }}</span></p>
+                        </div>
+                        <div class="bottom">
+                                <span class="multi-range">
+                                    <input type="range" min="0" max="100" value="{{ year_max }}" id="upper"
+                                           name="year_max">
+                                    <input type="range" min="0" max="100" value="{{ year_min }}" id="lower"
+                                           name="year_min">
+                                </span>
+                        </div>
+                    </div>
+                    <div class="form-group double-slide">
+                        <div class="top">
+                            <span class="label">امتیاز</span>
+                            <p><span id="min-rate"></span> - <span id="max-rate"></span></p>
+                        </div>
+                        <div class="bottom">
+                                <span class="multi-range">
+                                    <input type="range" min="0" max="100" value="{{ rate_max }}" id="max-rate-slider"
+                                           name="rate_max">
+                                    <input type="range" min="0" max="100" value="{{ rate_min }}" id="min-rate-slider"
+                                           name="rate_min">
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </section>
+    <!-- SearchBox End -->
+
+    <!-- Main Start -->
+    <section class="main">
+        <div class="extra-list animate__animated animate__fadeInRight">
+            <div class="card movie-card">
+                <div class="header">
+                    <i class="far fa-microphone"></i>
+                    <h3>فیلم های<span>دوبله فارسی</span></h3>
+                </div>
+                <div class="single-carousel-container" id="dubbed-list">
+                    <ul class="list items-list">
+                        {% for movie in dubbed_list %}
+                            <li class="item">
+                                <a href="{{ movie.url }}">
+                                    <div class="image" style="background-image:url({{ movie.item_img.url }})"></div>
+                                    <h3 class="name">{{ movie.title }}</h3>
+                                    <p class="rating"><span>{{ movie.rating }}</span> / 10</p>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="card movie-card">
+                <div class="header">
+                    <i class="far fa-closed-captioning"></i>
+                    <h3>فیلم های<span>زیرنویس فارسی</span></h3>
+                </div>
+                <div class="single-carousel-container" id="subbed-list">
+                    <ul class="list items-list">
+                        {% for movie in subbed_list %}
+                            <li class="item">
+                                <a href="{% url 'movie:single' movie.slug %}">
+                                    <div class="image" style="background-image:url({{ movie.item_img.url }})"></div>
+                                    <h3 class="name">{{ movie.title }}</h3>
+                                    <p class="rating"><span>{{ movie.rating }}</span> / 10</p>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="movie-list animate__animated animate__fadeInLeft">
+            <ul class="list">
+                {% for movie in main %}
+                    <li class="card"
+                        style="box-shadow: -5px 5px 20px rgb({{ movie.freq_color }}), 5px -5px 20px rgb({{ movie.third_color }})">
+                        <div class="overflows">
+                            <div class="qrcode">
+                                <button class="qrcode-btn">
+                                    <img src="{% static 'icons/qrCode.svg' %}" alt="">
+                                    <div style="display: none;" class="svg-value">
+                                        {{ movie.qrCode|safe }}
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="rating">
+                                <p>10 / <span>{{ movie.rating }}</span></p>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                        <div class="right">
+                            <div class="image">
+                                <img src="{{ movie.item_img.url }}" alt="">
+                            </div>
+                        </div>
+                        <div class="left">
+                            <h2 class="title en">{{ movie.title }}</h2>
+                            <ul class="extra-details">
+                                {% if movie.resolution %}
+                                    <li>
+                                        <i class="far fa-tv"></i>
+                                        <span class="label">کیفیت: </span>
+                                        <span class="value">{{ movie.resolution }}</span>
+                                    </li>
+                                {% endif %}
+                                <li>
+                                    <i class="far fa-clock"></i>
+                                    <span class="label">زمان: </span>
+                                    <span class="value">{{ movie.duration }} دقیقه</span>
+                                </li>
+                                <li>
+                                    <i class="far fa-album-collection"></i>
+                                    <span class="label">ژانر: </span>
+                                    <span class="value">
+                                        {% for genre in movie.genre.all|slice:"0:3" %}
+                                            <a href="{% url 'category:index' genre.en_title %}">{{ genre.en_title }}</a>
+                                        {% endfor %}
+
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="far fa-theater-masks"></i>
+                                    <span class="label">بازیگران: </span>
+                                    <span class="value">
+                                        {% for cast in movie.cast.all|slice:"0:3" %}
+                                            <a href="{% url 'Person:index' cast.slug %}">{{ cast.name }}</a>
+                                        {% endfor %}
+
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="far fa-directions"></i>
+                                    <span class="label">کارگردان: </span>
+                                    <span class="value">
+                                        {% for director in movie.directors.all|slice:"0:3" %}
+                                            <a href="{% url 'Person:index' director.slug %}">{{ director.name }}</a>
+                                        {% endfor %}
+
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fal fa-typewriter"></i>
+                                    <span class="label">نویسندگان: </span>
+                                    <span class="value">
+                                        {% for writer in movie.writers.all|slice:"0:3" %}
+                                            <a href="{% url 'Person:index' writer.slug %}">{{ writer.name }}</a>
+                                        {% endfor %}
+
+                                    </span>
+                                </li>
+                                <li>
+                                    <span class="label">داستان: </span>
+                                    <p class="value">{{ movie.fa_story|truncatechars:300 }}</p>
+                                </li>
+                            </ul>
+                            <a href="{{ movie.url }}">
+                                <button class="btn btn-yellow btn-outline btn-lg">ادامه</button>
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="pagination">
+                <ul class="links">
+                    <li class="active">
+                        <a href="#" class="disabled">
+                            <span>1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>4</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>5</span>
+                        </a>
+                    </li>
+                    <li class="dot"></li>
+                    <li class="dot"></li>
+                    <li class="dot"></li>
+                    <li>
+                        <a href="#">
+                            <span>1</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>2</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>3</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>4</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span>5</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </section>
+    <!-- Main End -->
+{% endblock %}
+{% block pages %}
+    {% include 'partials/qr_page.html' %}
+
+{% endblock %}
+
+{% block script %}
+    <script type="module">
+        import DoubleSideSlider from '{% static "js/doubleSideSlider.js" %}';
+        import SingleCarousel from '{% static "js/singleCarousel.js" %}';
+
+        let yearSlider = new DoubleSideSlider("upper", 'lower', 'to-year', 'from-year');
+        let rateSlider = new DoubleSideSlider("max-rate-slider", 'min-rate-slider', 'max-rate', 'min-rate', true);
+        let carousel = new SingleCarousel('dubbed-list', true, 4000);
+        let carousel2 = new SingleCarousel('subbed-list', false, 4000);
+        console.log(carousel);
+        console.log('jbhhh');
+        const qrcodePage = document.querySelector('.qrcode-page');
+        let qrCodeBtns = document.querySelectorAll('.qrcode-btn');
+        qrCodeBtns.forEach((btn) => {
+            btn.onclick = () => {
+                console.log(btn);
+                qrcodePage.querySelector('.card').innerHTML = btn.querySelector('.svg-value').innerHTML;
+                qrcodePage.classList.toggle('active');
+            }
+        });
+    </script>
+    <script src="{% static 'js/build_posters.js' %}"></script>
+    <script>
+        const qrcodePage = document.querySelector('.qrcode-page');
+        let qrCodeBtns = document.querySelectorAll('.qrcode-btn');
+        qrCodeBtns.forEach((btn) => {
+            btn.onclick = () => {
+                console.log(btn);
+                qrcodePage.querySelector('.card').innerHTML = btn.querySelector('.svg-value').innerHTML;
+                qrcodePage.classList.toggle('active');
+            }
+        });
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', "{% url 'REST:latest' %}");
+        xhr.onload = () => {
+            let jsoned = JSON.parse(xhr.responseText);
+            let posters = [];
+            jsoned.datas.forEach((item) => {
+                posters.push({'title': item.title, 'poster_img': item.poster_img, 'slug': `${item.url}`,});
+            });
+            BuildPosters(posters);
+        }
+        xhr.send()
+    </script>
+    <script src="{% static 'js/pagination.js' %}"></script>
+    <script>
+        Paginator({{ page }}, {{ last_page }}, {{ first_page }});
+    </script>
+{% endblock %}

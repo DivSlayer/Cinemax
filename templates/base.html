@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cinemax {% block title %}{% endblock %} </title>
+    <link rel="stylesheet" href="{% static 'components/fonts/IRANSans/fontiran.css' %}"/>
+    <link rel="stylesheet" href="{% static 'components/fonts/Poppins/poppins.css' %}"/>
+    <link rel="stylesheet" href="{% static 'components/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'icons/logo.png' %}"/>
+    {% block style %}{% endblock %}
+</head>
+
+<body>
+<div class="bg-circle-1">
+</div>
+<div class="bg-circle-2">
+</div>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+    {% include 'partials/search_page.html' %}
+{% block pages %}
+{% endblock %}
+<script src="{% static 'js/jquery.min.js' %}"></script>
+{% block script %}{% endblock %}
+<script src="{% static 'js/main.js' %}"></script>
+</body>

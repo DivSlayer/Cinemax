@@ -1,0 +1,226 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job</title>
+    <link rel="stylesheet" href="{% static 'test/style.min.css' %}"/>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div></div>
+            <div>
+                <h1>Getting the Job done!</h1>
+            </div>
+            <div>
+                <button class="add-btn" onclick="startNewJob()" id="startButton">Start Job</button>
+            </div>
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar"><i></i></div>
+            <ul class="steps" id="steps-list">
+            </ul>
+        </div>
+        <div>
+            <p id="errorMessage" style="color: red;font-size: 25px;display: none;"></p>
+        </div>
+    </div>
+    <script>
+        let currentSocket = null;
+        let currentJobId = null;
+        let startTime = null;
+        const totalProgressSpan = document.getElementById('overallProgress');
+        const progressFill = document.getElementById('progressFill');
+        const stepProgress = document.getElementById('stepProgress');
+        const stepsList =document.getElementById('steps-list');
+
+        let steps = [];
+
+        // On page load
+        window.addEventListener('load', async () => {
+            await loadActiveJobs();
+            
+            // Check if we're viewing an existing job
+            const pathParts = window.location.pathname.split('/');
+            console.log(pathParts);
+            if(pathParts.length > 2 && pathParts[1] === 'progress' && pathParts[2] !== "") {
+                const jobId = pathParts[2];
+                connectToJob(jobId);
+            }
+        });
+
+        async function loadActiveJobs() {
+            const response = await fetch('/jobs/active/');
+            const data = await response.json();
+        }
+
+        async function startNewJob() {
+            const button = document.getElementById('startButton');
+            button.disabled = true;
+            
+            try {
+                const inputPath = prompt('Enter input file path:');
+                if (!inputPath) return;
+
+                const response = await fetch('/jobs/create/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ input_path: inputPath })
+                });
+
+                if (!response.ok) throw new Error('Failed to create job');
+                
+                const jobData = await response.json();
+                currentJobId = jobData.id;
+                window.history.pushState(null, '', `/progress/${currentJobId}/`);
+                connectToJob(currentJobId);
+                
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function connectToJob(jobId) {
+            if(currentSocket) currentSocket.close();
+
+            currentSocket = new WebSocket(
+                `ws://${window.location.host}/ws/progress/${jobId}/`
+            );
+
+            currentSocket.onmessage = handleSocketMessage;
+            currentSocket.onclose = handleSocketClose;
+            currentSocket.onerror = handleSocketError;
+        }
+
+        function handleSocketMessage(event) {
+            const data = JSON.parse(event.data);
+            
+            if (data.error && data.error !== "") {
+                showError(data.error);
+                return;
+            }
+            if (steps.length === 0) {
+                console.log(data);
+                console.log(Object.keys(data).includes('steps'))
+                steps = Object.keys(data).includes('steps') ? data.steps : [];
+            }
+            makeStepsElement(data);
+            updateProgressIndicator(data);
+
+        }
+                
+        function updateProgressIndicator(data) {
+            const element = document.querySelector('.progress-bar i');  
+            element.style.width = `${Math.ceil(data.total_progress * 100) / 100}%`;
+        }
+
+        function makeStepsElement(data) {
+            let remained = formatTime(data.remained_time)
+            let progress = Math.ceil(data.step_progress *100) / 100;
+            let full_steps_html = "";
+            steps.forEach((item)=>{
+                let extra_class = '';
+                let innerSvg= '';
+                if(item === data.current_step && data.total_progress < 100){
+                    extra_class += ' progressing';
+                    innerSvg = `<svg class="spinner" width="12px" height="12px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="12px" stroke-linecap="round" cx="33" cy="33" r="27"></circle>
+                         </svg> `;
+                }else if(item === data.current_step && data.total_progress === 100){
+                    extra_class += ' done';
+                    innerSvg = `<img src="/static/svg/check.svg" class="check"/>`;
+                }
+                let index = data.steps.indexOf(item);
+                let currentIndex = data.steps.indexOf(data.current_step);
+                console.log(`item index :${index}`)
+                console.log(`current step index :${currentIndex}`)
+                if (index < currentIndex) {
+                    extra_class += ' done';
+                    innerSvg = `<img src="/static/svg/check.svg" class="check"/>`;
+                }
+                let info = item == data.current_step ? `
+                        <p id="step_progress">Progress: <span>${progress}%</span></span>
+                        <p id="remained">Remained Time: <span>${remained}</span></span>`: '';
+                full_steps_html += `
+                    <li class="step${extra_class}">
+                    <i class="dot">
+                        ${innerSvg}
+                    </i>
+                    <div class="step-info">
+                        <h2>${item}</h2>
+                        ${info}
+                    </div>
+                </li>`;
+            });
+
+            stepsList.innerHTML = full_steps_html;
+        }
+
+        function handleSocketClose() {
+            if (currentJobId) {
+                fetch(`/jobs/${currentJobId}/`)
+                    .then(response => response.json())
+                    .then(job => updateUI({
+                        status: job.status,
+                        currentStep: job.current_step,
+                        mainProgress: job.progress,
+                        detailProgress: 100
+                    }));
+            }
+        }
+
+        function handleSocketError(error) {
+            showError('Connection error. Trying to reconnect...');
+            setTimeout(() => connectToJob(currentJobId), 2000);
+        }
+        
+        function displayRemainingTime(seconds) {
+            const timeString = formatTime(seconds);
+            document.getElementById('remainingTime').textContent = `Estimated time remaining: ${timeString}`;
+        }
+        
+        function formatTime(seconds) {
+            if (seconds < 0 || !isFinite(seconds)) return 'Calculating...';
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            if (hours > 0) {
+                return `${hours}h ${minutes}m ${remainingSeconds}s`;
+            } else if (minutes > 0) {
+                return `${minutes}m ${remainingSeconds}s`;
+            } else {
+                return `${remainingSeconds}s`;
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.style.display = 'block';
+            errorDiv.textContent = message;
+        }
+
+        function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+</body>
+</html>

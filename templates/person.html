@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}- {{ person.name }}{% endblock %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/person.min.css' %}">
+{% endblock %}
+{% block content %}
+    {% include 'partials/navbar.html' %}
+    <div class="main">
+        <div class="details card">
+            <div class="image" style="background-image: url({{ person.img.url }})"></div>
+            <h1 class="name en">{{ person.name }}</h1>
+            <ul class="extras">
+                {% if person.height %}
+                    <li>
+                        <span class="label">قد : </span>
+                        <span class="value">{{ person.height }}</span>
+                    </li>
+                {% endif %}
+                {% if person.age %}
+                    <li>
+                        <span class="label">سن : </span>
+                        <span class="value">{{ person.age }}</span>
+                    </li>
+                {% endif %}
+                {% if person.birth_date %}
+                    <li>
+                        <span class="label">تولد : </span>
+                        <span class="value">{{ person.birth_date }}</span>
+                    </li>
+                {% endif %}
+                {% if person.bio %}
+                    <li>
+                        <span class="label">بیوگرافی : </span>
+                        <p class="value">{{ person.bio }}</p>
+                    </li>
+                {% endif %}
+            </ul>
+            <a href="http://imdb.com/name/nm{{person.imdb_id}}">
+                <button class="btn btn-yellow btn-outline round en">IMDB</button>
+            </a>
+        </div>
+        <div class="movie-list">
+            <div class="header">
+                <div class="ordering">
+                    <select name="ordering" id="ordering">
+                        <option value="0">Title</option>
+                        <option value="1">Rating</option>
+                        <option value="2">Published At</option>
+                    </select>
+                </div>
+            </div>
+            <ul class="items">
+                {% for movie in movies %}
+                <li>
+                    <a href="{% url 'movie:single' movie.slug %}">
+                        <div class="image" style="background-image: url({{ movie.item_img.url }});box-shadow: -5px 5px 20px rgb({{ movie.freq_color }}), 5px -5px 20px rgb({{ movie.third_color }})">
+                            <div class="overlay">
+                                <p class="story">{{ movie.fa_story }}</p>
+                            </div>
+                        </div>
+                        <div class="title en">{{ movie.title }}</div>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <div class="rate">
+                                <span>{{ movie.rating }}</span> / <span>10</span>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

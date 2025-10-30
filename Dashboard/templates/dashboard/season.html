@@ -1,0 +1,330 @@
+{% extends 'dashboard/struct.html' %}
+
+{% block content %}
+    <!-- Begin Page Header-->
+    <div class="row">
+        <div class="page-header">
+            <div class="d-flex align-items-center">
+                <h2 class="page-header-title">آپلود قسمت
+                    سریال
+                </h2>
+                <div>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'dashboard:home' %}"><i class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="#">Components</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Forms
+                            Basic
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <div class="row flex-row">
+        <div class="col-12">
+            <!-- Form -->
+            <div class="widget has-shadow">
+                <div
+                        class="widget-header bordered no-actions d-flex align-items-center">
+                    <h4>All Elements</h4>
+                </div>
+                <div class="widget-body">
+                    <form class="form-horizontal" id="form" method="POST" enctype="multipart/form-data">
+                        <div class="form-group row d-flex align-items-center mb-5">
+                            <label class="col-lg-3 form-control-label">شماره</label>
+                            <div class="col-lg-9">
+                                <input type="number" name="number" placeholder="شماره" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-5">
+                            <label class="col-lg-3 form-control-label">سریال</label>
+                            <div class="col-lg-7">
+                                <div class="dropdown bootstrap-select show-menu-arrow">
+                                    <select class="selectpicker show-menu-arrow" name="series" data-live-search="true" tabindex="-98" id="series" style="z-index: 1234;">
+                                        <option value="" selected="">---------</option>
+                                        {%for serial in serials %}
+                                        <option value="{{ serial.pk }}">{{serial.title}}</option>
+                                        {%endfor%}
+                                    </select>
+                                    <div class="dropdown-menu " role="combobox" style="z-index:1234 !important;">
+                                        <div class="bs-searchbox"><input type="text" class="form-control"
+                                                                         autocomplete="off" role="textbox"
+                                                                         aria-label="Search"></div>
+                                        <div class="inner show" role="listbox" aria-expanded="false" tabindex="-1">
+                                            <ul class="dropdown-menu inner show"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group row d-flex align-items-center mb-5 widget-body">
+                            <label class="col-lg-3 form-control-label">پیشرفت</label>
+
+                            <div class="col-sm-12 col-lg-8 d-flex align-items-start flex-column"
+                                 style="min-height: 25px;row-gap: 5px;">
+                                <div class="progress progress-lg col-12">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
+                                         role="progressbar" id="progressBar" style="width: 0%;height: 18px;" aria-valuenow="50"
+                                         aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="info d-flex align-items-center" style="column-gap:10px;"><p id="percent"
+                                                                                                        style="margin-bottom: 0">
+                                    <span>0</span>% </p>
+                                    <div class="dot"></div>
+                                    <div class="sizes"><span class="total">0</span> / <span class="downloaded">0</span>
+                                    </div>
+                                    <div class="dot"></div>
+                                    <p id="speed" style="margin-bottom: 0"><span>0</span>/s </p>
+                                    <div class="dot"></div>
+                                    <p id="seconds_left" style="margin-bottom: 0"><span>00:00</span></p>
+                                    <div class="dot"></div>
+                                    <p id="seconds_remain" style="margin-bottom:0"><span>00:00</span></p></div>
+                                <p id="error" class="text-danger"></p>
+                                <p id="success" class="text-success"></p>
+                                <p id="waiting" class="text-info"></p>
+                            </div>
+                        </div>
+                        <div class="form-group row d-flex align-items-center justify-content-center mb-5">
+                            <button type="button" class="btn btn-outline-primary mr-1 mb-2 col-6" id="submit">آپلود
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- End Form -->
+        </div>
+    </div>
+    <!-- End Row -->
+
+{% endblock %}
+
+{% block Script %}
+    <script>
+        const form = document.querySelector('#form');
+        let percentEl = document.querySelector('#percent span');
+        let time = 0;
+        let hitStart = 0;
+        let total_size = 0;
+        let loaded_size = 0;
+        let total_speed = 0;
+        let times_speed = 0;
+        let mirror_speed = 0;
+        let left_bytes = 0;
+        function progressFinished(finishedClass) {
+          document.getElementById('progressBar').classList.remove('progress-bar-striped');
+          document.getElementById('progressBar').classList.remove('progress-bar-animated');
+          document.getElementById('progressBar').classList.remove('bg-info');
+          document.getElementById('progressBar').classList.add(finishedClass);
+          }
+
+        function progressreset(finishedClass) {
+          document.getElementById('progressBar').classList.add('progress-bar-striped');
+          document.getElementById('progressBar').classList.add('progress-bar-animated');
+          document.getElementById('progressBar').classList.add('bg-info');
+          document.getElementById('progressBar').classList.remove('bg-success');
+          document.getElementById('progressBar').classList.remove('bg-danger');
+          }
+
+        function sendRequest() {
+            let formData = new FormData(form);
+            let ajax = $.ajax({
+                type: "post",
+                url: "{{ url }}",
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: formData,
+                enctype: 'multipart/form-data',
+                error: function (response) {
+                    try {
+                        let json_response = JSON.parse(response.responseText);
+                        error(response.responseText);
+                    } catch (e) {
+                        error('خطایی رخ داده است!');
+                    }
+                    // console.log('error');
+                },
+                complete: function (response) {
+                    if (response.status === 200) {
+                        finished(response.responseText);
+                    }
+                },
+                xhr: function () { // get the native XmlHttpRequest object
+                    let xhr = $.ajaxSettings.xhr();
+                    // It's the same as beforeSend event
+                    xhr.upload.onprogress = progress;
+                    // Executes when file sent from the client
+                    xhr.upload.onload = loaded;
+                    return xhr;
+                }
+            });
+
+            function loaded() {
+                // Executes when file sent from the client
+                document.getElementById('waiting').innerHTML = `لطفا صبر کنید ...`;
+            }
+
+            function timer(total, uploaded) {
+                if (hitStart === 0) {
+                    let timer = setInterval(() => {
+                        time++;
+                    }, 1000);
+                    if (total === uploaded) {
+                        clearInterval(timer);
+                    }
+                }
+            }
+
+            function setPercent(uploaded_bytes, total_bytes) {
+                let percent = Math.round((uploaded_bytes / total_bytes) * 100);
+                $('#progressBar').width(percent + '%');
+                percentEl.innerText = percent;
+            }
+
+            function setLeft(uploaded_bytes, total_bytes) {
+                timer(total_bytes, uploaded_bytes);
+                hitStart = 1;
+                let newTime = convertSecond(time);
+                document.querySelector('#seconds_left span').innerHTML = newTime.toString();
+            }
+
+            function setSizes(uploaded_bytes) {
+                let files = document.querySelectorAll('input[type=file]');
+                let total_size = 0;
+                for (let index = 0; index < files.length; index++) {
+                    const element = files[index];
+                    for (let y = 0; y < element.files.length; y++) {
+                        let file = element.files[y];
+                        total_size += file.size
+                    }
+                }
+                document.querySelector('.sizes .total').innerHTML = convertByte(total_size);
+                document.querySelector('.sizes .downloaded').innerHTML = convertByte(uploaded_bytes);
+            }
+
+            function progress(event) {
+                let uploaded_bytes = event.loaded;
+                let total_bytes = event.total;
+                total_size = total_bytes;
+                setPercent(uploaded_bytes, total_bytes);
+                setLeft(uploaded_bytes, total_bytes);
+                setSizes(uploaded_bytes);
+                let speed = (uploaded_bytes - loaded_size) / (1024 * 1024);
+                speed = Math.floor(speed * 10) / 10;
+                total_speed = total_speed + speed;
+                times_speed++;
+                mirror_speed = total_speed / time;
+                left_bytes = total_bytes - uploaded_bytes;
+                let remain = left_bytes / (mirror_speed * 1024 * 1024);
+                remain = Math.floor(remain);
+                remain = convertSecond(remain);
+                document.querySelector('#seconds_remain span').innerHTML = remain.toString();
+                document.querySelector('#speed span').innerHTML = convertByte(speed * (1024 * 1024));
+                loaded_size = uploaded_bytes;
+            }
+
+            function convertSecond(second) {
+                if (second < 3600 && second > 60) {
+                    return new Date(second * 1000).toISOString().substr(14, 5);
+                } else if (second > 3600) {
+                    return new Date(second * 1000).toISOString().substr(11, 8);
+                } else {
+                    return second + 's';
+                }
+            }
+
+            function convertByte(bytes) {
+                if (bytes > 1000 * 1000 * 1000) {
+                    let converted_byte = Math.floor((bytes / (1000 * 1000 * 1000)) * 100) / 100;
+                    return converted_byte + 'g';
+                }
+                if (bytes > 1000 * 1000) {
+                    let converted_byte = Math.floor((bytes / (1000 * 1000)) * 10) / 10;
+                    return converted_byte + 'm';
+                }
+                if (bytes > 1000) {
+                    return Math.floor((bytes / 1000) * 10) / 10 + "k";
+                } else {
+                    return bytes + 'b';
+                }
+            }
+
+            function error(responseText) {
+                // console.log(typeof responseText);
+                document.getElementById('waiting').innerHTML = ` `;
+                progressFinished('bg-danger');
+                if (typeof responseText != 'undefined' && typeof responseText != 'string') {
+                    let errors = $.parseJSON(responseText);
+                    let errorsTogether = '';
+                    for (let errorsKey in errors) {
+                        errorsTogether += `${errorsKey} <br>`;
+                    }
+                    const errorsList = document.getElementById('error');
+                    errorsList.innerHTML = errorsTogether;
+                }
+                if (typeof responseText == 'string') {
+                    const errorsList = document.getElementById('error');
+                    errorsList.innerHTML = responseText;
+                }
+                //events.classList.add('error');
+                //status.innerText = "Error";
+                //$('#cancel').fadeOut(200);
+            }
+
+            function finished(response) {
+                document.getElementById('waiting').innerHTML = ` `;
+                progressFinished('bg-success');
+                document.getElementById('success').innerHTML = `آپلود شد `;
+				showNoty();
+            }
+
+
+            function abort() {
+                // events.classList.add('abort');
+                // status.innerHTML = 'Canceled';
+                // $('#cancel').fadeOut(200);
+            }
+        }
+
+		function showNoty(){
+			new Noty({
+				type:"success",
+				layout:"topRight",
+				text:"Uploaded Successfully.",
+				progressBar:true,
+				timeout:300,
+				animation:{
+					open:"animated bounceInRight",
+					close:"animated bounceOutRight"
+				}
+			}).show();
+		}
+		
+        function reset() {
+          progressreset();
+            time = 0;
+            hitStart = 0;
+            total_size = 0;
+            loaded_size = 0;
+            total_speed = 0;
+            times_speed = 0;
+            mirror_speed = 0;
+            left_bytes = 0;
+            document.getElementById('success').innerHTML = ` `;
+            document.getElementById('error').innerHTML = ` `;
+        }
+
+        $('#submit').on('click', function (e) {
+            e.preventDefault();
+            reset();
+            sendRequest();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% load static %}
+<nav>
+    <div class="right animate__animated animate__fadeInRight">
+        <ul class="links">
+            <li>
+                <a href="/">صفحه اصلی</a>
+            </li>
+            <li>
+                <a href="#">فیلم ها</a>
+            </li>
+            <li>
+                <a href="#">سریال ها</a>
+            </li>
+            <li>
+                <a href="#">انیمیشن ها</a>
+            </li>
+        </ul>
+    </div>
+    <div class="left animate__animated animate__fadeInLeft">
+        <div class="search open-page" id="search-icon" data-page="search-page">
+            <img src="{% static 'icons/search-outline.svg' %}" alt=""/>
+        </div>
+        <div class="user">
+            <img src="{% static 'icons/person-outline.svg' %}" alt=""/>
+        </div>
+    </div>
+</nav>

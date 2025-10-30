@@ -1,0 +1,109 @@
+<nav class="side-navbar box-scroll sidebar-scroll">
+    <!-- Begin Main Navigation -->
+    <ul class="list-unstyled">
+        <li class="{% if current == 'home' %}active{% endif %}"><a href="{% if current == 'home' %}javascript:void(0);{% else %}{% url 'dashboard:home' %}{% endif %}"><i class="la la-columns"></i><span>داشبورد</span></a>
+        </li>
+    </ul>
+    <span class="heading">ابزار ها</span>
+    <ul class="list-unstyled">
+        <li class="{% if cat == 'uploads' %}active{% endif %} ">
+            <a href="#dropdown-ui"
+               aria-expanded="{% if cat == 'uploads' %}true{% else %}false{% endif %}"
+               data-toggle="collapse">
+                <i class="la la-cloud-upload"></i><span>آپلود ها</span>
+            </a>
+            <ul id="dropdown-ui"
+                class="collapse list-unstyled {% if cat == 'uploads' %}show{% endif %}  pt-0">
+                <li>
+                    <a href="{% if current == 'movie' %}javascript:void(0);{% else %}{% url 'dashboard:movie' %}{% endif %}"
+                       class="{% if current == 'movie' %}active{% endif %}">فیلم</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'serial' %}javascript:void(0);{% else %}{% url 'dashboard:serial' %}{% endif %}"
+                       class="{% if current == 'serial' %}active{% endif %}">سریال</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'serials' %}javascript:void(0);{% else %}{% url 'dashboard:serial' %}{% endif %}"
+                       class="{% if current == 'serials' %}active{% endif %}">مجموعه</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'season' %}javascript:void(0);{% else %}{% url 'dashboard:serial' %}{% endif %}"
+                       class="{% if current == 'season' %}active{% endif %}">فصل</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'episode' %}javascript:void(0);{% else %}{% url 'dashboard:episode' %}{% endif %}"
+                       class="{% if current == 'episode' %}active{% endif %}">قسمت سریال</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'movie-sub' %}javascript:void(0);{% else %}{% url 'dashboard:movie-sub' %}{% endif %}"
+                       class="{% if current == 'movie-sub' %}active{% endif %}">زیرنویس
+                        فیلم</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'season-sub' %}javascript:void(0);{% else %}{% url 'dashboard:season-sub' %}{% endif %}"
+                       class="{% if current == 'season-sub' %}active{% endif %}">زیرنویس
+                        فصل سریال</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'episode-sub' %}javascript:void(0);{% else %}{% url 'dashboard:episode-sub' %}{% endif %}"
+                       class="{% if current == 'episode-sub' %}active{% endif %}">زیرنویس
+                        قسمت سریال</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#"><i class="la la-commenting-o"></i><span>استخراج زیرنویس</span></a>
+        </li>
+        <li class="{% if cat == 'datas' %}active{% endif %} "><a href="#dropdown-tables"  aria-expanded="{% if cat == 'datas' %}true{% else %}false{% endif %}"
+               data-toggle="collapse"><i
+                class="la la-th-large"></i><span>داده ها</span></a>
+            <ul id="dropdown-tables"
+                class="collapse list-unstyled {% if cat == 'datas' %}show{% endif %}  pt-0">
+                <li>
+                    <a href="{% if current == 'movies' %}javascript:void(0);{% else %}{% url 'dashboard:data-movies' %}{% endif %}"
+                       class="{% if current == 'movies' %}active{% endif %}">فیلم</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'serial' %}javascript:void(0);{% else %}{% url 'dashboard:serial' %}{% endif %}"
+                       class="{% if current == 'serial' %}active{% endif %}">سریال</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'episodes' %}javascript:void(0);{% else %}{% url 'dashboard:data-episodes' %}{% endif %}"
+                       class="{% if current == 'episodes' %}active{% endif %}">قسمت ها</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'franchise' %}javascript:void(0);{% else %}{% url 'dashboard:franchise' %}{% endif %}"
+                       class="{% if current == 'franchise' %}active{% endif %}">مجموعه</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'seasons' %}javascript:void(0);{% else %}{% url 'dashboard:data-seasons' %}{% endif %}"
+                       class="{% if current == 'seasons' %}active{% endif %}">فصل</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'episodes' %}javascript:void(0);{% else %}{% url 'dashboard:episode' %}{% endif %}"
+                       class="{% if current == 'episodes' %}active{% endif %}">قسمت سریال</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'movies-sub' %}javascript:void(0);{% else %}{% url 'dashboard:data-movies-sub' %}{% endif %}"
+                       class="{% if current == 'movies-sub' %}active{% endif %}">زیرنویس
+                        فیلم</a>
+                </li>
+                <li>
+                    <a href="{% if current == 'seasons-sub' %}javascript:void(0);{% else %}{% url 'dashboard:season-sub' %}{% endif %}"
+                       class="{% if current == 'seasons-sub' %}active{% endif %}">زیرنویس
+                        فصل </a>
+                </li>
+                <li>
+                    <a href="{% if current == 'episodes-sub' %}javascript:void(0);{% else %}{% url 'dashboard:data-episodes-sub' %}{% endif %}"
+                       class="{% if current == 'episodes-sub' %}active{% endif %}">زیرنویس
+                        قسمت </a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="maps-leaflet.html"><i
+                class="la la-map"></i><span>Maps</span></a>
+        </li>
+    </ul>
+
+    <!-- End Main Navigation -->
+</nav>
+    

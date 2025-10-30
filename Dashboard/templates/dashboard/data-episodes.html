@@ -1,0 +1,590 @@
+{% extends 'dashboard/struct.html' %}
+{% block content %}
+    <!-- Begin Page Header-->
+    <div class="row">
+        <div class="page-header">
+            <div class="d-flex align-items-center">
+                <h2 class="page-header-title">Datatables</h2>
+                <div>
+                    <ul class="breadcrumb">
+                         <li class="breadcrumb-item"><a href="{% url 'dashboard:home' %}"><i
+                                class="ti ti-home"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active">Datatables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Header -->
+    <div class="row">
+        <div class="col-xl-12">
+            <!-- Sorting -->
+            <div class="widget has-shadow">
+                <div class="widget-header bordered no-actions d-flex align-items-center">
+                    <h4>Movies Subtitles</h4>
+                </div>
+                <div class="widget-body">
+                    <div class="table-responsive">
+                        <div id="sorting-table_wrapper"
+                             class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="dataTables_length"
+                                         id="sorting-table_length">
+                                        <label>Show <select name="sorting-table_length"
+                                                            aria-controls="sorting-table"
+                                                            id="movies_per_page"
+                                                            class="form-control form-control-sm">
+                                            <option
+                                                    value="10">
+                                                10
+                                            </option>
+                                            <option
+                                                    value="15">
+                                                15
+                                            </option>
+                                            <option
+                                                    value="20">
+                                                20
+                                            </option>
+                                            <option
+                                                    value="{{ movies_count }}">
+                                                All
+                                            </option>
+                                        </select>
+                                            entries</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="dataTables_length"
+                                         id="sorting-table_length">
+                                        <form action="#">
+
+                                            <label>Go <select name="sorting-table_length"
+                                                              aria-controls="sorting-table"
+                                                              id="selected_func"
+                                                              class="form-control form-control-sm">
+                                                <option
+                                                        value="1">Remove Selected
+                                                </option>
+                                                <option
+                                                        value="2">
+                                                    Get Soft-Subtitle
+                                                </option>
+                                                <option
+                                                        value="3">
+                                                    Check Status
+                                                </option>
+                                                <option
+                                                        value="4">
+                                                        Get Audios
+                                                </option>
+                                                <option
+                                                        value="{{ movies_count }}">
+                                                    All
+                                                </option>
+                                            </select>
+                                                <button type="submit" class="btn btn-primary" id="go-func">Go</button>
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div id="sorting-table_filter"
+                                         class="dataTables_filter">
+                                        <label>Search:<input type="search"
+                                                             class="form-control form-control-sm"
+                                                             placeholder=""
+                                                             id="search-input"
+                                                             aria-controls="sorting-table"></label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="sorting-table"
+                                           class="table mb-0 dataTable no-footer"
+                                           role="grid"
+                                           aria-describedby="sorting-table_info">
+                                        <thead>
+                                        <tr
+                                                role="row">
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Order ID: activate to sort column ascending"
+                                                style="width: 55px;">
+                                                <div class="styled-checkbox" style="display: inline-block;">
+                                                    <input type="checkbox" name="checkbox" id="select-all">
+                                                    <label for="select-all"></label>
+                                                </div>
+                                                Select
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Order ID: activate to sort column ascending"
+                                                style="width: 10px;">
+                                                ID
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Customer Name: activate to sort column ascending"
+                                                style="width: 90px;">
+                                                Number
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Country: activate to sort column ascending"
+                                                style="width:90px;">
+                                                Season
+                                            </th>
+                                            <th class="sorting_desc"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-sort="descending"
+                                                aria-label="Ship Date: activate to sort column ascending"
+                                                style="width: 86.1719px;">
+                                                Series
+                                            </th>
+                                            <th class="sorting"
+                                                tabindex="0"
+                                                aria-controls="sorting-table"
+                                                rowspan="1"
+                                                colspan="1"
+                                                aria-label="Actions: activate to sort column ascending"
+                                                style="width: 70.3125px;">
+                                                Actions
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for episode in page.object_list %}
+                                            <tr role="row"
+                                                class="odd episode">
+                                                <td>
+                                                    <span>
+                                                    <div class="styled-checkbox">
+                                                    <input type="checkbox"
+                                                           name="selection[]" id="{{ episode.uuid }}">
+                                                    <label for="{{ episode.uuid }}"></label>
+                                                </div>
+                                                    </span>
+                                                <td><span class="text-primary">{{ episode.pk }}</span>
+                                                </td>
+                                                <td class="number">episode {{ episode.number }}
+                                                </td>
+                                                <td class="season">season {{ episode.season.number }}
+                                                </td>
+                                                <td
+                                                        class="sorting_1 series">
+                                                    {{ episode.series.title }}
+                                                </td>
+                                                <td
+                                                        class="td-actions">
+                                                    <a
+                                                            href="#"><i
+                                                            class="la la-edit edit"></i></a>
+                                                    <a
+                                                            href="#"><i
+                                                            class="la la-close delete"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info"
+                                         id="sorting-table_info"
+                                         role="status"
+                                         aria-live="polite">
+                                        Showing {{ page.start_index }} to {{ page.end_index }} of
+                                        {{ count }} entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate paging_simple_numbers"
+                                         id="sorting-table_paginate">
+                                        <ul
+                                                class="pagination">
+                                            <li class="paginate_button page-item previous {% if not page.has_previous %}disabled{% endif %}"
+                                                id="sorting-table_previous">
+                                                <a href="#"
+                                                   aria-controls="sorting-table"
+                                                   data-dt-idx="0"
+                                                   tabindex="0"
+                                                   class="page-link">Previous</a>
+                                            </li>
+                                            {% for x in page_range %}
+                                                <li
+                                                        class="paginate_button page-item active">
+                                                    <a href="#"
+                                                       aria-controls="sorting-table"
+                                                       data-dt-idx="1"
+                                                       tabindex="0"
+                                                       class="page-link">{{ x }}</a>
+                                                </li>
+                                            {% endfor %}
+                                            <li class="paginate_button page-item next  {% if not page.has_next %}disabled{% endif %}"
+                                                id="sorting-table_next">
+                                                <a href="#"
+                                                   aria-controls="sorting-table"
+                                                   data-dt-idx="3"
+                                                   tabindex="0"
+                                                   class="page-link">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Sorting -->
+        </div>
+    </div>
+{% endblock content %}
+
+{% block Script %}
+    <script>
+        let search = document.getElementById('search-input');
+        search.onkeyup = searchFunction;
+
+        function searchFunction() {
+            // Declare variables
+            let input = document.getElementById('search-input');
+            let filter = input.value.toUpperCase().replace(/\s/g, '');
+            let episodes = document.querySelectorAll('.episode');
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < episodes.length; i++) {
+                let itsIn = false;
+                let episode = episodes[i]
+                let textValue = episode.textContent.replace(/(\r\n|\n|\r)/gm, "");
+                textValue = textValue.replace(/\s/g, '')
+                if (textValue.toUpperCase().indexOf(filter) > -1) {
+                    itsIn = true;
+                }
+                if (itsIn === false) {
+                    episode.classList.add('hide');
+                } else {
+                    episode.classList.remove('hide');
+                }
+            }
+        }
+
+        let selections = document.getElementsByName('selection[]');
+        document.getElementById('select-all').onclick = (e) => {
+            e.preventDefault();
+            selections.forEach(element => {
+                let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+                if (parentEl.classList.contains('hide') === false) {
+                    element.click();
+                }
+            });
+        }
+
+        function notySet(msg, typeMsg) {
+            new Noty({
+                type: typeMsg,
+                layout: "topRight",
+                text: msg,
+                progressBar: true,
+                timeout: 200,
+                animation: {
+                    open: "animated bounceInRight",
+                    close: "animated bounceOutRight"
+                }
+            }).show();
+        }
+
+        let selected_datas = [];
+
+        document.getElementById('go-func').onclick = (e) => {
+
+            selected_datas = [];
+            e.preventDefault();
+            let selected_func = document.getElementById('selected_func').value;
+            for (let i = 0; i < selections.length; i++) {
+                const element = selections[i];
+
+                let parentEl = element.parentElement.parentElement.parentElement.parentElement;
+                if (parentEl.classList.contains('hide') === false) {
+                    if (element.checked) {
+                        selected_datas.push(element.id);
+                    }
+                }
+            }
+            if (selected_datas.length > 0) {
+                let modals = document.querySelectorAll('.modal');
+                selected_func = parseInt(selected_func);
+                let modal_id = modals[selected_func - 1].id;
+                console.log(modal_id);
+                document.getElementById('go-func').setAttribute('data-toggle', 'modal');
+                document.getElementById('go-func').setAttribute('data-target', `#${modal_id}`);
+            } else {
+                let msg = "No item selected!";
+                let typeMsg = 'error';
+                notySet(msg, typeMsg);
+            }
+        }
+
+        function sendDatas(url, modal, confirmBtn, cancelBtn) {
+            let formData = new FormData();
+            let selections = '';
+            for (let x = 0; x < selected_datas.length; x++) {
+                const element = selected_datas[x];
+                if (x === 0) {
+                    selections += element
+                } else {
+                    selections += `,${element}`;
+                }
+
+            }
+            formData.append('selections', selections);
+            disabledBtns();
+            let ajax = $.ajax({
+                type: "post",
+                url: url,
+                processData: false,
+                contentType: false,
+                cache: false,
+                data: formData,
+                enctype: 'multipart/form-data',
+                error: function (response) {
+                    try {
+                        error(response.responseText);
+                    } catch (e) {
+                        error('خطایی رخ داده است!');
+                    }
+                    enableBtns();
+                },
+                complete: function (response) {
+                    if (response.status === 200) {
+                        finished(response.responseText);
+                    }
+                    enableBtns();
+                },
+                xhr: function () { // get the native XmlHttpRequest object
+                    let xhr = $.ajaxSettings.xhr();
+                    // Executes when file sent from the client
+                    xhr.upload.onload = loaded;
+                    return xhr;
+                }
+            });
+
+            function loaded() {
+                modal.querySelector('#waiting').innerHTML = `لطفا صبر کنید ...`;
+            }
+
+
+            function error(responseText) {
+                // console.log(typeof responseText);
+                modal.querySelector('#waiting').innerHTML = ` `;
+                if (typeof responseText != 'undefined' && typeof responseText != 'string') {
+                    let errors = $.parseJSON(responseText);
+                    let errorsTogether = '';
+                    for (let errorsKey in errors) {
+                        errorsTogether += `${errorsKey} <br>`;
+                    }
+                    const errorsList = modal.querySelector('#error');
+                    errorsList.innerHTML = errorsTogether;
+                }
+                if (typeof responseText == 'string') {
+                    const errorsList = modal.querySelector('#error');
+                    errorsList.innerHTML = responseText;
+                }
+            }
+
+            function finished(responseText) {
+                modal.querySelector('#waiting').innerHTML = ` `;
+                const successList = modal.querySelector('#success');
+                let datasList = JSON.parse(responseText).datas;
+                console.log(datasList);
+                let datasNode = '';
+                for (let key in datasList) {
+                    let data = datasList[key];
+                    let title = data.title;
+                    let result = data.result;
+                    let url = data.url;
+                    let color = data.color;
+                    if (color === 'red') {
+                        let new_element = `<div href="${url}" class="d-flex align-items-center justify-content-between">
+                                            <a href="${url}" class="text-primary">${title}</a>
+                                            <span class="text-danger">${result}</span>
+                                           </div><br>`;
+                        datasNode += new_element;
+                    } else {
+                        let new_element = `<div href="${url}" class="d-flex align-items-center justify-content-between">
+                                            <a href="${url}" class="text-primary">${title}</a>
+                                            <span class="text-success">${result}</span>
+                                           </div><br>`;
+                        datasNode += new_element;
+                    }
+                }
+                successList.innerHTML = datasNode;
+            }
+
+            function disabledBtns() {
+                document.getElementById(confirmBtn).classList.add('disabled');
+                document.getElementById(cancelBtn).classList.add('disabled');
+                document.getElementById(confirmBtn).setAttribute('disabled', 'true');
+                document.getElementById(cancelBtn).setAttribute('disabled', 'true');
+            }
+
+            function enableBtns() {
+                document.getElementById(confirmBtn).classList.remove('disabled');
+                document.getElementById(cancelBtn).classList.remove('disabled');
+                document.getElementById(confirmBtn).removeAttribute('disabled');
+                document.getElementById(cancelBtn).removeAttribute('disabled');
+            }
+
+        }
+
+        document.getElementById('confirm-delete').onclick = () => {
+            let url = "{% url 'dashboard:delete' %}";
+            let modal = document.getElementById("basic-modal-delete");
+            sendDatas(url, modal, 'confirm-delete', 'cancel-delete');
+
+        }
+        document.getElementById('confirm-soft').onclick = () => {
+            let url = "{% url 'dashboard:get-soft' %}";
+            let modal = document.getElementById("basic-modal-soft");
+            sendDatas(url, modal, 'confirm-soft', 'cancel-soft');
+        }
+
+        document.getElementById('confirm-status').onclick = () => {
+            let url = "{% url 'dashboard:check-status' %}";
+            let modal = document.getElementById("basic-modal-status");
+            sendDatas(url, modal, 'confirm-status', 'cancel-status');
+        }
+
+        document.getElementById('confirm-get-audios').onclick = () => {
+            let url = "{% url 'dashboard:get-audios' %}";
+            let modal = document.getElementById("basic-modal-audios");
+            sendDatas(url, modal, 'confirm-get-audios', 'cancel-get-audios');
+        }
+
+
+    </script>
+{% endblock Script %}
+
+
+{% block modal %}
+    <div id="basic-modal-delete" class="modal modal-top fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        are you sure that you want to delete selected items?
+                    </p>
+                    <p id="waiting" class="text-primary"></p>
+                    <p id="error" class="text-danger"></p>
+                    <p id="success" class="text-success"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-shadow" data-dismiss="modal" id="cancel-delete">No</button>
+                    <button type="button" class="btn btn-primary" id="confirm-delete">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="basic-modal-soft" class="modal modal-top fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        are you sure that you want to get the subtitles of selected items?
+                    </p>
+                    <p id="waiting" class="text-primary"></p>
+                    <p id="error" class="text-danger"></p>
+                    <p id="success" class="text-success"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-shadow" data-dismiss="modal" id="cancel-soft">No</button>
+                    <button type="button" class="btn btn-primary" id="confirm-soft">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="basic-modal-status" class="modal modal-top fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        are you sure that you want to check the status of selected items?
+                    </p>
+                    <p id="waiting" class="text-primary"></p>
+                    <p id="error" class="text-danger"></p>
+                    <p id="success" class="text-success"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-shadow" data-dismiss="modal" id="cancel-status">No</button>
+                    <button type="button" class="btn btn-primary" id="confirm-status">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="basic-modal-audios" class="modal modal-top fade" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure?</h4>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">×</span>
+                        <span class="sr-only">close</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        are you sure that you want to get the audios of selected items?
+                    </p>
+                    <p id="waiting" class="text-primary"></p>
+                    <p id="error" class="text-danger"></p>
+                    <p id="success" class="text-success"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-shadow" data-dismiss="modal" id="cancel-get-audios">No</button>
+                    <button type="button" class="btn btn-primary" id="confirm-get-audios">Yes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
