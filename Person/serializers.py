@@ -1,11 +1,11 @@
+from django.conf import settings
 from rest_framework import serializers
-from Cinemax.env import Env
 from Movie.models import Movie
 from Person.models import Person
 from Rest.common_serializers import SmallMovieSerializer, SmallSerialSerializer
 from Serial.models import Serial
 
-SERVER = Env().get_server()
+SERVER = settings.SITE_URL.rstrip('/')
 
 
 class PersonSerializer(serializers.ModelSerializer):

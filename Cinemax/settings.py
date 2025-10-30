@@ -13,19 +13,29 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+from environ import environ
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# Initialise environ
+env = environ.Env(
+    DEBUG=(bool, False),
+    # you can declare other typed defaults here if you want
+)
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-k+4lw_50&*+a*1*ip+qagsgd&wthp1gtzm##w9v#m_huv=8kf8"
+# Read .env file if present (priority: environment variables > .env)
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Basic settings via environ
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ["*"]
+SECRET_KEY = env('SECRET_KEY', default='unsafe-default-for-dev-only')
+
+SITE_URL = env('SITE_URL', default='http://127.0.0.1:8000')  # <-- your server base URL
+API_KEY = env('API_KEY', default='')
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['127.0.0.1', 'localhost'])
 
 CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",

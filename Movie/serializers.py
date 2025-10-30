@@ -1,7 +1,7 @@
+from django.conf import settings
 from rest_framework import serializers
 
 from Category.serializers import CategorySerializer
-from Cinemax.env import Env
 from Country.serializers import CountrySerializer
 from Movie.models import Movie, Subtitle, Audio, Video
 from Person.models import Person
@@ -15,7 +15,7 @@ from Rest.common_serializers import (
 )
 from Serial.models import Serial
 
-SERVER = Env().get_server()
+SERVER = settings.SITE_URL.rstrip('/')
 
 
 def all_serializer(obj):

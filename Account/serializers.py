@@ -23,7 +23,8 @@ class AccountSerializer(serializers.ModelSerializer):
     def get_plan(self, account):
         plan = account.plan
         return PlanSerializer(plan).data if plan else None
-        
+
+
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan

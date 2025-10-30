@@ -3,6 +3,8 @@ import re
 import shutil
 from itertools import combinations
 
+import environ
+from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.db.models.signals import pre_save
@@ -10,7 +12,6 @@ from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils.translation import gettext as _
 from Category.models import Category
-from Cinemax.env import Env
 from Country.models import Country
 from Person.models import Person
 from Serial.values import get_serial_root
@@ -240,7 +241,7 @@ def get_video_name(episode: Episode, old_name, res=None):
     ext = old_name.split(".")[-1]
     combs = get_array(episode.serial.title)
     combs.extend(slugify(episode.serial.title).split("-"))
-    sites = Env().import_sites
+    sites = settings.env.list("IMPORT_SITES", default=[])
     reses = ["2160p", "1080p", "720p", "480p", "360p", "240p"]
     extra_infos = []
     number = (

@@ -7,13 +7,13 @@ from random import randint
 import re
 
 import webvtt
+from django.conf import settings
 from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.db.models.signals import pre_save, post_save, post_delete
 from django.dispatch import receiver
 from django.utils.text import slugify
 from Category.models import Category
-from Cinemax.env import Env
 from Country.models import Country
 from Movie.values import get_movie_root
 from Person.models import Person
@@ -271,7 +271,7 @@ def get_video_name(video, old_name, res=None):
     ext = old_name.split(".")[-1]
     combs = get_array(video.movie.title)
     combs.extend(slugify(video.movie.title).split("-"))
-    sites = Env().import_sites
+    sites = settings.env.list("IMPORT_SITES", default=[])
     reses = ["2160p", "1080p", "720p", "480p", "360p", "240p"]
     extra_infos = []
     extras = file_name.split(".")

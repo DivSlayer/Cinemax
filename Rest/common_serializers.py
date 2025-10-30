@@ -1,14 +1,14 @@
 import json
 
+from django.conf import settings
 from rest_framework import serializers
 
 from Category.serializers import CategorySerializer
-from Cinemax.env import Env
 from Movie.models import Subtitle as MovieSubtitle, Audio as MovieAudio, Movie, Video, Audio
 from Person.models import Person
 from Serial.models import Serial, Episode, Audio as EpisodeAudio, EpisodeSubtitle
 
-server = Env().get_server()
+server = settings.SITE_URL.rstrip('/')
 
 
 class SmallMovieSerializer(serializers.ModelSerializer):

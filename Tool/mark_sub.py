@@ -1,15 +1,16 @@
 
 import json
 import re
-
-from Cinemax.env import Env
+import environ
+from django.conf import settings
 
 
 class MarkSub:
     def __init__(self, file):
         self.file = file
         self.lines = []
-        self.sites = Env().import_sites
+        self.sites = settings.env.list("IMPORT_SITES", default=[])
+
         self.new_content = None
         self.read_content()
 
