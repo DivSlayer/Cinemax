@@ -1,15 +1,15 @@
 import json
 
+from django.conf import settings
 from django.http import HttpResponse
 
 from Category.models import Category
-from Cinemax.env import Env
 from Movie.models import Movie
 from Serial.models import Serial
 from Utility.responses import list_response
 from Utility.tools import ordering
 
-SERVER = Env().get_server()
+SERVER = settings.SITE_URL
 
 
 def single(request, title):

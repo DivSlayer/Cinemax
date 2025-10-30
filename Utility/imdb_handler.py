@@ -5,8 +5,8 @@ import os
 
 import requests
 from bs4 import BeautifulSoup
+from django.conf import settings
 from imdb import Cinemagoer
-from Cinemax.env import Env
 from Country.models import Country
 from Movie.models import Movie
 from Serial.models import Serial
@@ -23,7 +23,7 @@ from PIL import Image
 
 from Utility.translator import translate_text
 
-API_KEY = Env().API_KEY
+API_KEY = settings.API_KEY
 
 
 class IMDBHandler:

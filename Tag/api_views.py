@@ -1,16 +1,14 @@
 import json
 
+from django.conf import settings
 from django.http import HttpResponse
-
-from Cinemax.env import Env
 from Movie.models import Movie
 from Serial.models import Serial
 from Tag.models import Tag
 from Utility.responses import list_response
 from Utility.tools import ordering
 
-Server = Env().get_server()
-
+Server = settings.SITE_URL
 
 def list_tags(request):
     datas = []

@@ -3,10 +3,10 @@ import os
 import re
 
 import webvtt
+from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import render
 import requests
-from Cinemax.env import Env
 from Movie.models import Movie, Audio as MovieAudio, Video, Subtitle as MovieSubtitle
 from Movie.values import get_movie_root
 from Serial.models import Serial, Episode, EpisodeSubtitle, Audio as EpisodeAudio
@@ -17,7 +17,7 @@ from django.utils.text import slugify
 from Tool.mark_sub import MarkSub
 from Utility.no_serializer import get_object
 
-API_KEY = Env().API_KEY
+API_KEY = settings.API_KEY
 
 
 # Create your views here.
