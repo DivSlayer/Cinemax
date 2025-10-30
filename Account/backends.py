@@ -8,14 +8,17 @@ class CaseInsensitiveModelBackend(ModelBackend):
         if username is None:
             username = kwargs.get(UserModel.USERNAME_FIELD)
         try:
-            case_insensitive_username_field = "{}_iexact".format(
+            case_insensitive_username_field = "{}__iexact".format(
                 UserModel.USERNAME_FIELD
             )
+            print(username)
             user = UserModel._default_manager.get(
                 **{case_insensitive_username_field: username}
             )
         except UserModel.DoesNotExist:
+            print("User not found")
             UserModel().set_password(password)
         else:
+            print("User is authenticated")
             if user.check_password(password) and self.user_can_authenticate(user):
                 return user
