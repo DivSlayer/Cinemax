@@ -22,7 +22,7 @@ from Rest.common_serializers import GetSourceSerializer
 from Serial.models import Serial, Episode
 from Tag.models import Tag
 from Tool.check_soft import check_soft_sub
-from Tool.get_soft_subtitle import SoftSubtitle
+from Tool.softsub_handler import SoftSubtitle
 from Tool.views import convert_vtt, get_poster
 from Utility.db_transfer import import_data
 from Utility.imdb_handler import IMDBHandler

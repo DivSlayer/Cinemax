@@ -1,5 +1,5 @@
 from Tool.audio_handler import AudioHandler
-from Tool.get_soft_subtitle import SoftSubtitle
+from Tool.softsub_handler import SoftSubtitle
 from Utility.no_serializer import get_object
 
 

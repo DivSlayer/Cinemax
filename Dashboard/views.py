@@ -13,7 +13,7 @@ from Rest.common_serializers import SmallMovieSerializer
 from Serial.models import EpisodeSubtitle, Serial, Season, Episode
 from Serial.values import get_episode_path
 from Tool.audio_handler import AudioHandler
-from Tool.get_soft_subtitle import SoftSubtitle
+from Tool.softsub_handler import SoftSubtitle
 from Tool.views import convert_vtt
 from Utility.no_serializer import get_object
 from Utility.responses import paginator

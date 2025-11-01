@@ -17,7 +17,7 @@ from Movie.models import Movie, Video, Subtitle as MovieSubtitle, Subtitle
 from Rest.common_serializers import SmallMovieSerializer, SubtitleSerializer
 from Serial.forms import CreateEpisodeSub
 from Serial.models import Episode, EpisodeSubtitle, Season
-from Tool.get_soft_subtitle import SoftSubtitle
+from Tool.softsub_handler import SoftSubtitle
 from Tool.views import convert_vtt
 from Utility.no_serializer import get_object
 from Movie.forms import CreateMovieSubtitle
